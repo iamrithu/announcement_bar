@@ -1,0 +1,1 @@
+const announcementBar = document.getElementById("shopify-section-announcement-bar");announcementBar.innerHTML ="rithi"
