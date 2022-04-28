@@ -4,6 +4,9 @@ import express from "express";
 
 import cookieParser from "cookie-parser";
 import { Shopify, ApiVersion } from "@shopify/shopify-api";
+
+import bar from './model/annouceMentBar.js'
+
 import "dotenv/config";
 
 import body from 'body-parser';
@@ -72,6 +75,10 @@ export async function createServer(
       res.status(500).send(error.message);
     }
   });
+  
+  
+  
+  
   app.use(body.json());
   app.get("/products-count", verifyRequest(app), async (req, res) => {
     const session = await Shopify.Utils.loadCurrentSession(req, res, true);
@@ -82,6 +89,20 @@ export async function createServer(
     const countData = await Product.count({ session });
     res.status(200).send(countData);
   });
+  app.post("/bar", async(req, res) => {
+    
+    console.log(req.body);
+ await bar.create(req.body).then((data) => console.log(data))
+   
+  }); 
+
+   app.get("/bar", async (req, res) => {
+    
+  var data = await bar.find();
+
+  res.send(data)
+   
+  }); 
 
   app.post("/graphql", verifyRequest(app), async (req, res) => {
     try {
@@ -103,9 +124,10 @@ export async function createServer(
 
      
   })
-app.get("/script_tag", async (req, res) => {
+app.get("/script_tag/:id", async (req, res) => {
   res.type("text/javascript")
-  res.send(`const announcementBar = document.getElementById("shopify-section-announcement-bar");announcementBar.innerHTML="rithi"`)
+  res.send(`const announcementBar = document.getElementById("shopify-section-announcement-bar");announcementBar.innerHTML="rithi"`);
+  console.log("getting");
 })
   
 app.get("/create-script", verifyRequest(app), async (req, res) => {
@@ -125,6 +147,8 @@ app.get("/create-script", verifyRequest(app), async (req, res) => {
 
 
 });
+
+
 
   app.use(express.json());
 
@@ -203,3 +227,20 @@ app.get("/create-script", verifyRequest(app), async (req, res) => {
 if (!isTest) {
   createServer().then(({ app }) => app.listen(PORT));
 }
+
+
+
+
+
+
+//mongoose
+ 
+import mongoose from 'mongoose';
+
+mongoose.connect(
+  process.env.DB,
+  () => {
+    console.log("DB connected !!!");
+  }
+);
+mongoose.Promise = global.Promise;

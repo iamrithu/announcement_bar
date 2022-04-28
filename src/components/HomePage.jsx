@@ -1,140 +1,169 @@
-
 import {
   Card,
   Layout,
-  Page, Tag, Stack, TextField, Button, DataTable, Scrollable
+  Page,
+  Tag,
+  Stack,
+  TextField,
+  Button,
+  DataTable,
+  Scrollable,
 } from "@shopify/polaris";
 
 import { useAppBridge } from "@shopify/app-bridge-react";
 import { userLoggedInFetch } from "../App";
 
-
-
-
-
-import { useState } from "react";
-
-
+import { useState, useEffect } from "react";
 
 export function HomePage() {
   const app = useAppBridge();
   const fetch = userLoggedInFetch(app);
 
-  const [demo, getDemo] = useState('');
-  const [demo2, getDemo2] = useState('');
-  const [demo3, getDemo3] = useState('');
-
-
-
-
-
+  const [openstate, setOpenState] = useState(false);
+  const [bar, getBar] = useState([]);
+  const [name, getDemo] = useState("");
+  const [shipbar, getDemo2] = useState("");
+  // const [demo3, getDemo3] = useState('');
 
   const blog = {
-    js: `const announcementBar = document.getElementById("shopify-section-announcement-bar");announcementBar.innerHTML ="rithi"`
-  }
+    name: name,
+    shipBar: shipbar,
+  };
   const click = () => {
 
-    fetch('/demo', {
+    fetch("/bar", {
       method: "POST",
-      headers: { 'Content-Type': "application/json" },
-      body: JSON.stringify(blog)
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(blog),
     }).then(() => {
       console.log("send");
-    })
+    });
     console.log("working");
-
-
-  }
-
+  };
 
   async function create() {
+    setOpenState(true);
 
+    
+  }
+   
 
-    const res = await fetch("/create-script")
-    console.log(res);
+  async function reload() {
+    const count = await fetch("/bar").then((res) => res.json());
+    
+    getBar(count);
 
   }
 
+  function clicking(e){
+   console.log('====================================');
+   console.log(e.name);
+   console.log('====================================');
+  }
+
+  
+
+  useEffect(
+    () => reload()
+    ,
 
 
-
-
-
-
-
-
-
-
+    [bar]);
 
   return (
     <Page title="Announcement">
-      <Scrollable>  <Layout>
-        <Layout.Section><Stack distribution="trailing"><Button primary onClick={create}>Create new </Button></Stack></Layout.Section>
-        <Layout.Section fullWidth>
-          <Card title="Products Name" >
-
-            <Card.Section>
-              <DataTable
-                columnContentTypes={[
-                  'text',
-                  'numeric',
-                  'numeric',
-                  'numeric',
-                  'numeric',
-                ]}
-                headings={[
-                  'Name',
-                  'Geo Target',
-                  'Excluded Countries',
-                  'Actions',
-                  'Achievements',
-                ]}
-                rows={[
-                  ['Emerald Silk Gown', '$875.00', 124689, <Layout><Button onClick={() => alert('demo')}>Edit</Button><Button onClick={(demo, demo2, demo3) => alert('demo')}>Dupilicate</Button><Button onClick={() => alert('demo')}>Delete</Button></Layout>, '$122,500.00'],
-
-                ]}
-
-              />
-            </Card.Section>
-          </Card>
-        </Layout.Section>
-        <Layout.Section fullWidth>
-          <Card title="Content Configuration" sectioned >
-
-            <TextField
-              label="Name"
-              value={demo}
-              onChange={getDemo}
-              autoComplete="off"
-            />
-            <TextField
-              label="FreeShiping Goal"
-              value={demo2}
-              onChange={getDemo2}
-              autoComplete="off"
-            />
-            <Stack><TextField
+      <Scrollable>
+        {" "}
+        <Layout>
+          <Layout.Section>
+            <Stack distribution="trailing">
+              <Button primary onClick={create}>
+                Create new{" "}
+              </Button>
+            </Stack>
+          </Layout.Section>
+          <Layout.Section fullWidth>
+            <Card title="Products Name">
+              <Card.Section>
+                <DataTable
+                  columnContentTypes={[
+                    "text",
+                    "numeric",
+                    "numeric",
+                    "numeric",
+                    "numeric",
+                  ]}
+                  headings={[
+                    "Name",
+                    "Geo Target",
+                    "Excluded Countries",
+                    "Actions",
+                    "Achievements",
+                  ]}
+                  rows={bar.map((info,index)=>{
+                    return [
+                      info.name,
+                      info.shipBar,
+                      "",
+                      <Layout key={index}>
+                        <Button >Edit</Button>
+                        <Button
+                          
+                        >
+                          Dupilicate
+                        </Button>
+                        <Button onClick={() => alert("name")}>Delete</Button>
+                        <Button onClick={()=>clicking(info)}>Active</Button>
+                      </Layout>,
+                      ""
+                    ]
+                  })}
+                />
+              </Card.Section>
+            </Card>
+          </Layout.Section>
+          {openstate ? (
+            <Layout.Section fullWidth>
+              <Card title="Content Configuration" sectioned>
+                <TextField
+                  label="Name"
+                  value={name}
+                  onChange={getDemo}
+                  autoComplete="off"
+                />
+                <TextField
+                  label="FreeShiping Goal"
+                  value={shipbar}
+                  onChange={getDemo2}
+                  autoComplete="off"
+                />
+                <Stack>
+                  {/* <TextField
               label="Initial Message"
               value={demo3}
               onChange={getDemo3}
               autoComplete="off"
-            />
-              <TextField
+            /> */}
+                  {/* <TextField
                 label="INR 100"
                 value={demo3}
                 onChange={getDemo3}
                 autoComplete="off"
-              /></Stack>
+              /> */}
+                </Stack>
 
-
-            <br></br>
-            <Stack distribution="trailing"><Button primary onClick={click}> Add</Button></Stack>
-          </Card>
-
-        </Layout.Section>
-
-      </Layout></Scrollable>
-
+                <br></br>
+                <Stack distribution="trailing">
+                  <Button primary onClick={click}>
+                    {" "}
+                    Add
+                  </Button>
+                </Stack>
+              </Card>
+            </Layout.Section>
+          ) : null}
+        </Layout>
+      </Scrollable>
     </Page>
   );
 }
