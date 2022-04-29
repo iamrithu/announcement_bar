@@ -23,23 +23,26 @@ export function HomePage() {
   const [bar, getBar] = useState([]);
   const [name, getDemo] = useState("");
   const [shipbar, getDemo2] = useState("");
+  const [goal,setGoal]=useState(0)
   // const [demo3, getDemo3] = useState('');
 
   const blog = {
     name: name,
     shipBar: shipbar,
   };
-  const click = () => {
+  const click = async() => {
 
-    fetch("/bar", {
+    await fetch("/bar", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(blog),
-    }).then(() => {
-      console.log("send");
-    });
-    console.log("working");
+    })
+    
+   
+   
+   
   };
+  //--------------------
 
   async function create() {
     setOpenState(true);
@@ -55,11 +58,31 @@ export function HomePage() {
 
   }
 
-  function clicking(e){
-   console.log('====================================');
-   console.log(e.name);
-   console.log('====================================');
+ async function clicking(e){
+  
+    await fetch(`/script_tag`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(e),
+    })
+      
+  
+    await fetch("/create-script", {
+      method: "GET",
+      
+    })
+    
+  
   }
+
+  async function deleted(e){
+  
+   console.log(e._id);
+
+   await fetch("/bar/"+e._id).then((res) => res.json());
+ 
+   
+   }
 
   
 
@@ -71,7 +94,7 @@ export function HomePage() {
     [bar]);
 
   return (
-    <Page title="Announcement">
+    <Page title="Announcement" fullWidth>
       <Scrollable>
         {" "}
         <Layout>
@@ -104,18 +127,18 @@ export function HomePage() {
                     return [
                       info.name,
                       info.shipBar,
-                      "",
-                      <Layout key={index}>
-                        <Button >Edit</Button>
+                      "N/A",
+                      <Stack key={index} distribution="trailing">
+                        <Button  style={{color:"blue"}}>Edit</Button>
                         <Button
                           
                         >
                           Dupilicate
                         </Button>
-                        <Button onClick={() => alert("name")}>Delete</Button>
-                        <Button onClick={()=>clicking(info)}>Active</Button>
-                      </Layout>,
-                      ""
+                        <Button onClick={() =>deleted(info)} destructive>Delete</Button>
+                        <Button onClick={()=>clicking(info)} primary>Active</Button>
+                      </Stack>,
+                      "Premium Only"
                     ]
                   })}
                 />
@@ -123,34 +146,37 @@ export function HomePage() {
             </Card>
           </Layout.Section>
           {openstate ? (
-            <Layout.Section fullWidth>
+            <Layout.Section >
               <Card title="Content Configuration" sectioned>
-                <TextField
+              
+               <div style={{width:"45%"}}>
+               <TextField
                   label="Name"
                   value={name}
                   onChange={getDemo}
                   autoComplete="off"
+                  
                 />
+               </div>
+               <div style={{width:"20%"}}>
                 <TextField
                   label="FreeShiping Goal"
+                  value={goal}
+                  type="number"
+                  onChange={setGoal}
+                  autoComplete="off"
+                />
+                </div>
+                <div style={{width:"45%"}}>
+                <TextField
+                  label="initial Message"
                   value={shipbar}
+                 
                   onChange={getDemo2}
                   autoComplete="off"
                 />
-                <Stack>
-                  {/* <TextField
-              label="Initial Message"
-              value={demo3}
-              onChange={getDemo3}
-              autoComplete="off"
-            /> */}
-                  {/* <TextField
-                label="INR 100"
-                value={demo3}
-                onChange={getDemo3}
-                autoComplete="off"
-              /> */}
-                </Stack>
+                </div>
+             
 
                 <br></br>
                 <Stack distribution="trailing">

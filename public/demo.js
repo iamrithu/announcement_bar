@@ -1,1 +1,1 @@
-const announcementBar = document.getElementById("shopify-section-announcement-bar");announcementBar.innerHTML ="rithi"
+my name is rithi mahesh 
