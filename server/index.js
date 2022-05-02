@@ -93,17 +93,13 @@ export async function createServer(
 
     res.send(data);
   });
-  // app.delete("/delete/:id", async (req, res) => {
+  
 
-  //   var data = await bar.findByIdAndDelete({_id:req.params.id});
-
-  //   res.send(data)
-
-  //   });
-
-  app.delete("/delete/:id", (req, res) => {
-    bar.findByIdAndRemove({ _id: req.params.id }).then((data) => {
+  app.delete("/delete/:id", async(req, res) => {
+   await bar.findByIdAndRemove({ _id: req.params.id }).then((data) => {
       res.send(data);
+
+      console.log(data);
     });
   });
 
@@ -121,18 +117,17 @@ export async function createServer(
   });
   app.post("/script_tag", async (req, res) => {
      var content = req.body;
-     console.log(content);
+    
  
     var data=`const announcementBar = document.getElementById("shopify-section-announcement-bar");
-     announcementBar.innerHTML ="<div style='height:50px; width:100%; position:relative; '> <div style='  height:100%; width:100%; box-sizing:content-box;display:flex;align-items:center;justify-content:center; background:url(https://s3.amazonaws.com/lastsecondcoupon/img/bar_background/custom_code_background_halloween.jpg); background-position: center;  '><h2 style='color:white;'>${content.shipBar}</h2> </div> </div>"`;    
+     announcementBar.innerHTML ="<div style='  height:40px; width:100%; display:flex;align-items:center;justify-content:center; background:${content.background}; color:${content.fontColor}; fontSize:${content.fontSize}; fontFamily:${content.fontFamily};  '><h2 style='color:white;'>${content.shipBar}</h2> </div> "`;    
 
     fs.writeFile("./public/script.js", data, (err) => {
       if (err)
         console.log(err);
       else {
         console.log("File written successfully\n");
-        console.log("The written has the following contents:");
-        console.log(fs.readFileSync("./public/script.js", "utf8"));
+        
       }
     });
 
@@ -151,7 +146,7 @@ export async function createServer(
     const test_session = await Shopify.Utils.loadCurrentSession(req, res);
     const script_tag = new ScriptTag({ session: test_session });
     script_tag.event = "onload";
-    script_tag.src = `${process.env.HOST}/script_tag`;
+    script_tag.src = `${process.env.HOST}/public/script.js`;
     await script_tag.save({});
     res.status(200);
   });

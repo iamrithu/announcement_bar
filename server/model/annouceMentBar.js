@@ -9,7 +9,23 @@ const barSchema = new schema({
   },
   shipBar: {
     type: String,
-    required: [true, "projectname field is required"],
+    required: true,
+  },
+  background: {
+    type: String,
+    required: true,
+  },
+  fontFamily: {
+    type: String,
+    required: true,
+  },
+  fontSize: {
+    type: String,
+    required: true,
+  },
+  fontColor: {
+    type: String,
+    required: true,
   },
 
  
