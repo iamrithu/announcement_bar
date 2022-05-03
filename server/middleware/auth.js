@@ -1,5 +1,7 @@
 import { Shopify } from "@shopify/shopify-api";
 
+import Shop from "../model/shopDetails.js";
+
 import topLevelAuthRedirect from "../helpers/top-level-auth-redirect.js";
 
 export default function applyAuthMiddleware(app) {
@@ -47,6 +49,32 @@ export default function applyAuthMiddleware(app) {
         res,
         req.query
       );
+      console.log(session.accessToken);
+
+      const data = await Shop.findOne({ shopId: session.id });
+
+      if (data) {
+
+        await Shop.updateOne({ shopId: session.id }, {
+          $set: {
+            shopId: session.id,
+            shop: session.shop,
+            state: session.state,
+            accessToken: session.accessToken
+          }
+        })
+      } else {
+        await Shop.create({
+          shopId: session.id,
+          shop: session.shop,
+          state: session.state,
+          accessToken: session.accessToken
+
+        })
+
+      }
+
+
 
       const host = req.query.host;
       app.set(
@@ -62,6 +90,10 @@ export default function applyAuthMiddleware(app) {
         topic: "APP_UNINSTALLED",
         path: "/webhooks",
       });
+
+
+
+
 
       if (!response["APP_UNINSTALLED"].success) {
         console.log(

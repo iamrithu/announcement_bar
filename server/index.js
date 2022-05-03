@@ -12,9 +12,13 @@ import "dotenv/config";
 import body from "body-parser";
 
 import fs from "fs";
+import cookie from 'cookie'
 
 import applyAuthMiddleware from "./middleware/auth.js";
 import verifyRequest from "./middleware/verify-request.js";
+
+
+
 
 const USE_ONLINE_TOKENS = true;
 const TOP_LEVEL_OAUTH_COOKIE = "shopify_top_level_oauth";
@@ -76,26 +80,32 @@ export async function createServer(
   app.use(body.json());
   app.get("/products-count", verifyRequest(app), async (req, res) => {
     const session = await Shopify.Utils.loadCurrentSession(req, res, true);
+    console.log(session);
     const { Product } = await import(
       `@shopify/shopify-api/dist/rest-resources/${Shopify.Context.API_VERSION}/index.js`
     );
-
     const countData = await Product.count({ session });
     res.status(200).send(countData);
   });
-  app.post("/bar",  verifyRequest(app), async (req, res) => {
+  
+
+
+  
+  app.post("/bar", async (req, res) => {
+
+
     console.log(req.body);
     await bar.create(req.body).then((data) => console.log(data));
   });
   
-  app.get("/bar",  verifyRequest(app), async (req, res) => {
+  app.get("/bar", async (req, res) => {
     var data = await bar.find();
 
     res.send(data);
   });
   
 
-  app.delete("/delete/:id",  verifyRequest(app), async(req, res) => {
+  app.delete("/delete/:id", async(req, res) => {
    await bar.findByIdAndRemove({ _id: req.params.id }).then((data) => {
       res.send(data);
 
@@ -112,8 +122,10 @@ export async function createServer(
     }
   });
 
- 
-  app.post("/script_tag", verifyRequest(app),  async (req, res) => {
+  
+
+
+  app.post("/script_tag", async (req, res) => {
      var content = req.body;
     
  
@@ -153,6 +165,8 @@ export async function createServer(
 
   app.use((req, res, next) => {
     const shop = req.query.shop;
+    
+
     if (Shopify.Context.IS_EMBEDDED_APP && shop) {
       res.setHeader(
         "Content-Security-Policy",
@@ -167,6 +181,7 @@ export async function createServer(
   app.use("/*", (req, res, next) => {
     const { shop } = req.query;
 
+   
     // Detect whether we need to reinstall the app, any request from Shopify will
     // include a shop in the query parameters.
     // @ts-ignore

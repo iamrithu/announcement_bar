@@ -150,6 +150,15 @@ export function HomePage() {
 
   }
 
+  async function edit(){
+   console.log("rithi");
+
+   const demo = await fetch("/demo").then((res)=>res.json());
+
+   console.log(demo);
+   
+  }
+
 
 
 
@@ -238,7 +247,7 @@ export function HomePage() {
                       </Stack>
                       ,
                       <Stack key={index} distribution="trailing">
-                        <Button style={{ color: "blue" }}>Edit</Button>
+                        <Button onClick={edit}>Edit</Button>
                        
                         <Button onClick={() => deleted(info)} destructive>Delete</Button>
                         <Button onClick={() => clicking(info)} primary>Active</Button>
