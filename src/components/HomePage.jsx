@@ -257,7 +257,7 @@ export function HomePage() {
               <div style={{ display: 'grid', gridTemplateColumns: "auto auto", gap: "10px", padding: "10px 14px" }}>
                 {
                   demoJson.map((info, index) => {
-                    return <div key={index} style={{ height: "40px", width: "100%", background: info.background, fontSize: info.fontSize, color: info.fontColor, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", borderRadius: "10px", boxShadow: `1px -1px 10px ${info.background}` }} onClick={() => chooseThemes(info)}>{info.name}</div>
+                    return <div key={index} style={{ height: "40px", width: "100%", background: info.background, fontSize: info.fontSize, color: info.fontColor, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", borderRadius: "4px", }} onClick={() => chooseThemes(info)}>{info.name}</div>
                   })
                 }
               </div>
@@ -295,7 +295,7 @@ export function HomePage() {
           <Layout.Section oneHalf>
             <Card title="Design Configuration" sectioned>
 
-            <div style={{display: 'flex',alignItems: 'center',justifyContent:"space-between" , height:"50px" ,width:"40%"}}>
+            <div style={{display: 'flex',alignItems: 'center',justifyContent:"space-between" , height:"50px" ,width:"60%"}}>
             <lable>background</lable>
             <input
                 
@@ -303,6 +303,7 @@ export function HomePage() {
                 type="color"
                 onChange={(e)=>getBackground(e.target.value)}
                 autoComplete="off"
+                style={{width:"200px",height:"40px"}}
 
               />
             </div>
@@ -311,9 +312,10 @@ export function HomePage() {
                 value={fontFamily}
                 onChange={getFontFamily}
                 autoComplete="off"
+               
 
               />
-                          <div style={{display: 'flex',alignItems: 'center',justifyContent:"space-between" , height:"50px" ,width:"40%"}}>
+                          <div style={{display: 'flex',alignItems: 'center',justifyContent:"space-between" , height:"50px" ,width:"60%"}}>
            <lable>Font-Color</lable>
               <input
                 
@@ -321,6 +323,8 @@ export function HomePage() {
                 onChange={(e)=>getFontColor(e.target.value)}
                 type="color"
                 autoComplete="off"
+                style={{width:"200px",height:"40px"}}
+
 
               />
               </div>

@@ -83,19 +83,19 @@ export async function createServer(
     const countData = await Product.count({ session });
     res.status(200).send(countData);
   });
-  app.post("/bar", async (req, res) => {
+  app.post("/bar",  verifyRequest(app), async (req, res) => {
     console.log(req.body);
     await bar.create(req.body).then((data) => console.log(data));
   });
   
-  app.get("/bar", async (req, res) => {
+  app.get("/bar",  verifyRequest(app), async (req, res) => {
     var data = await bar.find();
 
     res.send(data);
   });
   
 
-  app.delete("/delete/:id", async(req, res) => {
+  app.delete("/delete/:id",  verifyRequest(app), async(req, res) => {
    await bar.findByIdAndRemove({ _id: req.params.id }).then((data) => {
       res.send(data);
 
@@ -112,10 +112,8 @@ export async function createServer(
     }
   });
 
-  app.post("/demo", (req, res) => {
-   
-  });
-  app.post("/script_tag", async (req, res) => {
+ 
+  app.post("/script_tag", verifyRequest(app),  async (req, res) => {
      var content = req.body;
     
  
