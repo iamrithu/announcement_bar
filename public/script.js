@@ -1,2 +1,2 @@
 const announcementBar = document.getElementById("shopify-section-announcement-bar");
-     announcementBar.innerHTML ="<div style='  height:40px; width:100%; display:flex;align-items:center;justify-content:center; background:#34B0F3; color:#E6DBF3; fontSize:14px; fontFamily:Helvetica;  '><h2 style='color:white;'>demo3</h2> </div> "
+     announcementBar.innerHTML ="<div><h1>{{demo}}</h1></div>"

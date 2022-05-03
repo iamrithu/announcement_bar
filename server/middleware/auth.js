@@ -49,7 +49,7 @@ export default function applyAuthMiddleware(app) {
         res,
         req.query
       );
-      console.log(session.accessToken);
+      
 
       const data = await Shop.findOne({ shopId: session.id });
 

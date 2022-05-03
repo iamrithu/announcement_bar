@@ -19,7 +19,8 @@ export function HomePage() {
 
   const [openstate, setOpenState] = useState(false);
   const [inputFeild, setInputFeild] = useState(false);
-
+ 
+  const [shop,setShop] = useState({});
 
   const [bar, getBar] = useState([]);
 
@@ -108,9 +109,26 @@ export function HomePage() {
   ]
 
 
+ async function data(){
+ const data = await fetch("/shop").then(res => res.json());
+
+  setShop(data);
+
+ 
+    
+   }
+
+   console.log(shop);
+   
+  
+
 
 
   const blog = {
+    shopName:shop.shop,
+    shopId:shop.shopId,
+    shopUUID:shop._id,
+    
     name,
     shipBar,
     background,
@@ -151,11 +169,8 @@ export function HomePage() {
   }
 
   async function edit(){
-   console.log("rithi");
-
-   const demo = await fetch("/demo").then((res)=>res.json());
-
-   console.log(demo);
+    const count = await fetch("/tags").then((res)=>res.json());
+    console.log(count)
    
   }
 
@@ -172,16 +187,15 @@ export function HomePage() {
   async function clicking(e) {
 
     await fetch(`/script_tag`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(e),
-    })
-
-
-    await fetch("/create-script", {
       method: "GET",
-
+     
     })
+
+
+    // await fetch("/create-script", {
+    //   method: "GET",
+
+    // })
 
 
   }
@@ -201,11 +215,11 @@ export function HomePage() {
 
 
   useEffect(
-    () => reload()
+    () => {reload(); data()}
     ,
 
 
-    [bar]);
+    []);
 
   return (
     <Page title="Announcement" fullWidth>

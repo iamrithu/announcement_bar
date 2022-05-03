@@ -23,10 +23,19 @@ const barSchema = new schema({
     type: String,
     required: true,
   },
-  fontColor: {
+  shopName: {
     type: String,
     required: true,
   },
+  shopId: {
+    type: String,
+    required: true,
+  },
+  shopUUID: {
+    type: String,
+    required: true,
+  },
+  isActive:{type: Boolean, default: false},
 
  
 });
