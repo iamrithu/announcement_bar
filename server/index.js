@@ -7,6 +7,10 @@ import { Shopify, ApiVersion } from "@shopify/shopify-api";
 
 import bar from "./model/annouceMentBar.js";
 
+import announcement_bar from './router/announcement_bar.js'
+
+
+
 import "dotenv/config";
 
 import body from "body-parser";
@@ -69,6 +73,8 @@ export async function createServer(
 
   app.use(express.static("public"));
 
+  app.use('/',announcement_bar)
+
   app.post("/webhooks", async (req, res) => {
     try {
       await Shopify.Webhooks.Registry.process(req, res);
@@ -94,15 +100,12 @@ export async function createServer(
 
 
   app.post("/bar", async (req, res) => {
-
-
     console.log(req.body);
     await bar.create(req.body).then((data) => console.log(data));
   });
 
   app.get("/bar", async (req, res) => {
     var data = await bar.find();
-
     res.send(data);
   });
   app.get("/tags", async (req, res) => {
@@ -128,8 +131,9 @@ const {ScriptTag} = await import (`@shopify/shopify-api/dist/rest-resources/${Sh
 
   app.get('/shop',async(req,res)=>{
     const test_session = await Shopify.Utils.loadCurrentSession(req, res);
-     var data =  await Shop.findOne({shopId: test_session.id});
-     res.send(data)
+    var data =  await Shop.findOne({shopId: test_session.id});
+    res.send(data)
+    
   })
 
   app.post("/graphql", verifyRequest(app), async (req, res) => {
@@ -146,23 +150,7 @@ const {ScriptTag} = await import (`@shopify/shopify-api/dist/rest-resources/${Sh
 
   app.get("/script_tag", verifyRequest(app),async (req, res) => {
     const test_session = await Shopify.Utils.loadCurrentSession(req, res);
-    // var content = req.body;
-
-
-    // var data = `const announcementBar = document.getElementById("shopify-section-announcement-bar");
-    //  announcementBar.innerHTML ="<div style='  height:40px; width:100%; display:flex;align-items:center;justify-content:center; background:${content.background}; color:${content.fontColor}; fontSize:${content.fontSize}; fontFamily:${content.fontFamily};  '><h2 style='color:white;'>${content.shipBar}</h2> </div> "`;
-
-    // fs.writeFile(`./public/${test_session.id}.js`, data, (err) => {
-    //   if (err)
-    //     console.log(err);
-    //   else {
-    //     console.log("File written successfully\n");
-
-    //   }
-    // });
-
-    // res.send(data)
-
+   
     const { ScriptTag } = await import(
       `@shopify/shopify-api/dist/rest-resources/${Shopify.Context.API_VERSION}/index.js`
     );
@@ -182,18 +170,19 @@ const {ScriptTag} = await import (`@shopify/shopify-api/dist/rest-resources/${Sh
   app.get("/get-script",  async (req, res) => {
 
 
-    console.log(req.originalUrl);
-    console.log(req.query.shop);
+     var data = await bar.find({shopName:req.query.shop ,isActive:true});
+
+     
     // req.shopname
     // 
     const fileString = fs.readFileSync(`./public/script.js`,"utf-8")
-    const tpl = await engine.parseAndRender(fileString,{demo:"rithi"
+    const tpl = await engine.parseAndRender(fileString,{demo:`${ data[0].shipBar}`
       })
     res.type("application/javascript");
 
     res.send(tpl)
 
-    console.log(tpl);
+ 
     
   });
 
@@ -284,6 +273,7 @@ if (!isTest) {
 //mongoose
 
 import mongoose from "mongoose";
+
 
 mongoose.connect(process.env.DB, () => {
   console.log("DB connected !!!");

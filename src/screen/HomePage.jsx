@@ -7,11 +7,14 @@ import {
   Button,
   DataTable,
 } from "@shopify/polaris";
+import {Table } from './components/Table.jsx'
 
 import { useAppBridge } from "@shopify/app-bridge-react";
 import { userLoggedInFetch } from "../App";
 
 import { useState, useEffect } from "react";
+
+
 
 export function HomePage() {
   const app = useAppBridge();
@@ -225,15 +228,19 @@ export function HomePage() {
     <Page title="Announcement" fullWidth>
       <>
         {" "}
-        <Layout>
-          <Layout.Section>
+        <Layout fullWidth>
+          <Table/>
+          {/* <Layout.Section>
+          
+          
+          
             <Stack distribution="trailing">
               <Button primary onClick={openThemes}>
                 Create new{" "}
               </Button>
             </Stack>
-          </Layout.Section>
-          <Layout.Section fullWidth>
+          </Layout.Section> */}
+          {/* <Layout.Section fullWidth>
             <Card title="Products Name">
               <Card.Section>
                 <DataTable
@@ -255,10 +262,7 @@ export function HomePage() {
                     return [
                       info.name,
                       info.shipBar,
-                      <Stack>
-                        <div style={{ height: "30px", width: "100px", display: "flex", alignItems: "center", justifyContent: "center", background: info.background, color: info.fontColor, fontSize: info.fontSize, fontFamily: info.fontFamily }} ><h2>content</h2> </div> ,
-
-                      </Stack>
+                     
                       ,
                       <Stack key={index} distribution="trailing">
                         <Button onClick={edit}>Edit</Button>
@@ -272,22 +276,22 @@ export function HomePage() {
                 />
               </Card.Section>
             </Card>
-          </Layout.Section>
-          {openstate ? (
-            <Layout.Section fullWidth>
-              <h1>Basic template</h1>
-              <Card>
-              <div style={{ display: 'grid', gridTemplateColumns: "auto auto", gap: "10px", padding: "10px 14px" }}>
-                {
-                  demoJson.map((info, index) => {
-                    return <div key={index} style={{ height: "40px", width: "100%", background: info.background, fontSize: info.fontSize, color: info.fontColor, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", borderRadius: "4px", }} onClick={() => chooseThemes(info)}>{info.name}</div>
-                  })
-                }
-              </div>
-              </Card>
-            </Layout.Section>
+          </Layout.Section> */}
+          {/* {openstate ? (
+            // <Layout.Section fullWidth>
+            //   <h1>Basic template</h1>
+            //   <Card>
+            //   <div style={{ display: 'grid', gridTemplateColumns: "auto auto", gap: "10px", padding: "10px 14px" }}>
+            //     {
+            //       demoJson.map((info, index) => {
+            //         return <div key={index} style={{ height: "40px", width: "100%", background: info.background, fontSize: info.fontSize, color: info.fontColor, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", borderRadius: "4px", }} onClick={() => chooseThemes(info)}>{info.name}</div>
+            //       })
+            //     }
+            //   </div>
+            //   </Card>
+            // </Layout.Section>
 
-          ) : null}
+          ) : null} */}
 
         </Layout>
         {inputFeild ? <Layout>  <Layout.Section oneHalf>

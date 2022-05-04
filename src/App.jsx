@@ -16,6 +16,7 @@ import "@shopify/polaris/build/esm/styles.css";
 
 import { HomePage } from "./screen/HomePage";
 
+
 export default function App() {
   return (
     <PolarisProvider i18n={translations}>
@@ -27,7 +28,8 @@ export default function App() {
         }}
       >
         <MyProvider>
-          <HomePage />
+         <HomePage /> 
+        
         </MyProvider>
       </AppBridgeProvider>
     </PolarisProvider>

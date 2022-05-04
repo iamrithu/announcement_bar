@@ -15,6 +15,10 @@ const barSchema = new schema({
     type: String,
     required: true,
   },
+  fontColor: {
+    type: String,
+    required: true,
+  },
   fontFamily: {
     type: String,
     required: true,
