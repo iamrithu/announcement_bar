@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const schema = mongoose.Schema;
 
@@ -35,14 +35,9 @@ const barSchema = new schema({
     type: String,
     required: true,
   },
-  shopUUID: {
-    type: String,
-    required: true,
-  },
-  isActive:{type: Boolean, default: false},
 
- 
+  isActive: { type: Boolean, default: false },
 });
 
 const User = mongoose.model("bar", barSchema);
- export default User;
+export default User;

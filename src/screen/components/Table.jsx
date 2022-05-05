@@ -14,45 +14,29 @@ export const Table = () => {
   const [templates, set_templates] = useState([]);
   const [openState, setOpenState] = useState(false);
 
+  // async function shopData() {
+  //   const data = await fetch("/shop").then((res) => res.json());
+  //   set_shop_details(data);
+  // }
 
-  async function shopData() {
-    const data = await fetch("/shop").then((res) => res.json());
-    const count = await fetch(`/announcementBar/${data.shop}`).then((res) => res.json());
-
-    set_templates(count)
-    set_shop_details(data);
+  async function getTemplate() {
+    const count = await fetch(`/announcementBar`).then((res) => res.json());
+    set_templates(count);
   }
 
-  
-
- 
-
   async function deleted(e) {
-    
     await fetch(`/delete/${e._id}`, {
       method: "Delete",
     });
   }
   async function activate(e) {
-      console.log(e);
-    // var activated= await fetch(`/isactivate/${shop_details.shop}`).then((res) => res.json());
-
-    // if(activated)await fetch(`/update/${activated._id}`, {
-    //     method: "PUT",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify({isActive:false}),
-
-    // })
     await fetch(`/update/${e._id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({isActive:true}),
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ isActive: true }),
+    });
 
-    })
-
-    // await fetch(`/script_tag`, {
-    //   method: "GET",
-    // });
+    await fetch("/script_tag").then((res) => res.json());
   }
 
   const add = () => {
@@ -64,9 +48,8 @@ export const Table = () => {
   };
 
   useEffect(() => {
-   
-    shopData();
-  },[]);
+    getTemplate();
+  }, []);
 
   return (
     <Page fullWidth>
@@ -77,7 +60,7 @@ export const Table = () => {
             <Button onClick={add}>Add</Button>{" "}
           </Stack>
         </Layout.Section>
-        <Layout.Section >
+        <Layout.Section>
           <Card>
             <DataTable
               columnContentTypes={["text", "text", "text", "text"]}
@@ -114,7 +97,7 @@ export const Table = () => {
             />
           </Card>
         </Layout.Section>
-        <Layout.Section >
+        <Layout.Section>
           {openState ? <Templates shopData={shop_details} /> : null}
         </Layout.Section>
       </Layout>
