@@ -1,6 +1,7 @@
 const announcementBar = document.getElementById(
   "shopify-section-announcement-bar"
 );
+announcementBar.style.marginBottom = "10px";
 announcementBar.innerHTML = `<div
       style="
         height: 35px;
@@ -8,6 +9,7 @@ announcementBar.innerHTML = `<div
         background: url();
         background: {{background}};
         margin: 0px;
+        margin-bottom:10px;
         display: flex;
         position:{{position}};
         align-items: center;

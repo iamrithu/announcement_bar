@@ -106,7 +106,7 @@ const Templates = ({ shopData }) => {
       fontColor: font_color,
       fontFamily: font_family,
       fontSize: font_size,
-      isActive: false,
+      isActive: true,
     };
 
     await fetch("/announcementBar", {
@@ -117,9 +117,13 @@ const Templates = ({ shopData }) => {
   }
 
   return (
-    <Layout title="Basic template">
+    <Layout>
       <Layout.Section fullWidth>
-        <h1>Basic template</h1>
+        <Stack distribution="center">
+          <h1>Basic Templates</h1>
+        </Stack>
+      </Layout.Section>
+      <Layout.Section fullWidth>
         <Card>
           <div
             style={{

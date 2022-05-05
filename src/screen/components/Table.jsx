@@ -6,18 +6,26 @@ import { userLoggedInFetch } from "../../App";
 
 import Templates from "./Templates";
 
+import styled from "styled-components";
+
+const ActiveButton = styled.button`
+  padding: 9px 20px;
+  border: ${(props) =>
+    props.active ? "1px solid #3EB372" : "0.5px solid black"};
+  border-radius: 4px;
+  background: white;
+  color: ${(props) => (props.active ? "#3EB372" : "black")};
+`;
+
 export const Table = () => {
   const app = useAppBridge();
   const fetch = userLoggedInFetch(app);
 
+  const [actived, setActive] = useState();
+
   const [shop_details, set_shop_details] = useState({});
   const [templates, set_templates] = useState([]);
   const [openState, setOpenState] = useState(false);
-
-  // async function shopData() {
-  //   const data = await fetch("/shop").then((res) => res.json());
-  //   set_shop_details(data);
-  // }
 
   async function getTemplate() {
     const count = await fetch(`/announcementBar`).then((res) => res.json());
@@ -29,7 +37,9 @@ export const Table = () => {
       method: "Delete",
     });
   }
-  async function activate(e) {
+  async function activate(e, index) {
+    localStorage.setItem("index", index);
+    setActive(index);
     await fetch(`/update/${e._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -73,7 +83,7 @@ export const Table = () => {
                     <div
                       style={{
                         height: "30px",
-                        width: "100px",
+                        width: "100%",
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
@@ -81,14 +91,22 @@ export const Table = () => {
                         color: info.fontColor,
                         fontSize: info.fontSize,
                         fontFamily: info.fontFamily,
+                        borderRadius: "4px",
                       }}
                     >
-                      <h2>content</h2>{" "}
+                      <h2 style={{ width: "100%", margin: "20px 50px" }}>
+                        content
+                      </h2>{" "}
                     </div>{" "}
                     ,
                   </Stack>,
                   <Stack>
-                    <Button onClick={() => activate(info)}>Action</Button>
+                    <ActiveButton
+                      active={index === localStorage.getItem("index")}
+                      onClick={() => activate(info, index)}
+                    >
+                      {index === actived ? "Actived " : "Paused"}
+                    </ActiveButton>
                     <Button>Edit</Button>
                     <Button onClick={() => deleted(info)}>Delete</Button>
                   </Stack>,

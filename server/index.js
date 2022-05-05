@@ -101,6 +101,20 @@ export async function createServer(
   app.post("/announcementBar", async (req, res) => {
     const test_session = await Shopify.Utils.loadCurrentSession(req, res);
 
+    var data = await AnnouncementBar.find({
+      shopName: test_session.shop,
+      isActive: true,
+    });
+
+    if (data.length != 0) {
+      data.map(async (info, index) => {
+        await AnnouncementBar.updateOne(
+          { _id: info._id },
+          { $set: { isActive: false } }
+        );
+      });
+    }
+
     if (test_session) {
       var template = {
         name: req.body.name,
@@ -111,7 +125,7 @@ export async function createServer(
         fontSize: req.body.fontSize,
         shopName: test_session.shop,
         shopId: test_session.id,
-        isActive: false,
+        isActive: req.body.isActive,
       };
       await AnnouncementBar.create(template);
     } else {
