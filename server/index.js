@@ -158,8 +158,6 @@ export async function createServer(
     await AnnouncementBar.findByIdAndRemove({ _id: req.params.id }).then(
       (data) => {
         res.send(data);
-
-        // console.log(data);
       }
     );
   });
