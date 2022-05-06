@@ -31,6 +31,9 @@ export const Table = () => {
     const count = await fetch(`/announcementBar`).then((res) => res.json());
     set_templates(count);
   }
+  async function scriptRun() {
+    await fetch("/script_tag").then((res) => res.status);
+  }
 
   async function deleted(e) {
     await fetch(`/delete/${e._id}`, {
@@ -38,18 +41,15 @@ export const Table = () => {
     });
     getTemplate();
   }
-  var data = localStorage.getItem("value");
 
   async function activate(e, index) {
     setActive(index);
+
     await fetch(`/update/${e._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ isActive: true }),
     });
-
-    await fetch("/script_tag").then((res) => res.json());
-    alert("hi");
   }
 
   const add = () => {
@@ -60,7 +60,10 @@ export const Table = () => {
     }
   };
 
-  useEffect(getTemplate, true);
+  useEffect(() => {
+    getTemplate();
+    scriptRun();
+  }, []);
 
   return (
     <Page fullWidth>
