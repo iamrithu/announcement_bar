@@ -36,9 +36,11 @@ export const Table = () => {
     await fetch(`/delete/${e._id}`, {
       method: "Delete",
     });
+    getTemplate();
   }
+  var data = localStorage.getItem("value");
+
   async function activate(e, index) {
-    localStorage.setItem("index", index);
     setActive(index);
     await fetch(`/update/${e._id}`, {
       method: "PUT",
@@ -47,6 +49,7 @@ export const Table = () => {
     });
 
     await fetch("/script_tag").then((res) => res.json());
+    alert("hi");
   }
 
   const add = () => {
@@ -57,9 +60,7 @@ export const Table = () => {
     }
   };
 
-  useEffect(() => {
-    getTemplate();
-  }, []);
+  useEffect(getTemplate, true);
 
   return (
     <Page fullWidth>
@@ -102,7 +103,7 @@ export const Table = () => {
                   </Stack>,
                   <Stack>
                     <ActiveButton
-                      active={index === localStorage.getItem("index")}
+                      active={index === actived}
                       onClick={() => activate(info, index)}
                     >
                       {index === actived ? "Actived " : "Paused"}
