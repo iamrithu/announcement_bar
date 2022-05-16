@@ -133,7 +133,6 @@ export async function createServer(
   });
   app.put("/update/:id", async (req, res) => {
     const test_session = await Shopify.Utils.loadCurrentSession(req, res);
-
     var data = await AnnouncementBar.find({
       shopName: test_session.shop,
       isActive: true,

@@ -44,7 +44,6 @@ export const Table = () => {
 
   async function activate(e, index) {
     setActive(index);
-
     await fetch(`/update/${e._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
