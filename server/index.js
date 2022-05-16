@@ -196,7 +196,7 @@ export async function createServer(
     await script_tag.save({});
     res.status(200);
 
-    console.log("pingged");
+    console.log("pingged...");
   });
 
   app.get("/get-script", async (req, res) => {
