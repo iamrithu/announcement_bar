@@ -135,24 +135,24 @@ export async function createServer(
   app.put("/update/:id", async (req, res) => {
     const test_session = await Shopify.Utils.loadCurrentSession(req, res);
     console.log(test_session);
-    // var data = await AnnouncementBar.find({
-    //   shopName: test_session.shop,
-    //   isActive: true,
-    // });
+    var data = await AnnouncementBar.find({
+      shopName: test_session.shop,
+      isActive: true,
+    });
 
-    // if (data.length != 0) {
-    //   data.map(async (info, index) => {
-    //     await AnnouncementBar.updateOne(
-    //       { _id: info._id },
-    //       { $set: { isActive: false } }
-    //     );
-    //   });
-    // }
+    if (data.length != 0) {
+      data.map(async (info, index) => {
+        await AnnouncementBar.updateOne(
+          { _id: info._id },
+          { $set: { isActive: false } }
+        );
+      });
+    }
 
-    // await AnnouncementBar.updateOne(
-    //   { _id: req.params.id },
-    //   { $set: { isActive: true } }
-    // );
+    await AnnouncementBar.updateOne(
+      { _id: req.params.id },
+      { $set: { isActive: true } }
+    );
   });
 
   app.delete("/delete/:id", async (req, res) => {
