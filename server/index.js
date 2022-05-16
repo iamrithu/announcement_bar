@@ -86,9 +86,7 @@ export async function createServer(
   });
 
   //=====================================================================
-  app.get("/demo", (req, res) => {
-    res.send("working");
-  });
+
   app.get("/announcementBar", async (req, res) => {
     const test_session = await Shopify.Utils.loadCurrentSession(req, res);
 
