@@ -100,8 +100,8 @@ export const Table = () => {
                     >
                       <h2 style={{ width: "100%", margin: "20px 50px" }}>
                         content
-                      </h2>{" "}
-                    </div>{" "}
+                      </h2>
+                    </div>
                     ,
                   </Stack>,
                   <Stack>
