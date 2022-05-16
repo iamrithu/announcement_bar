@@ -6,7 +6,6 @@ import {
   Stack,
   Layout,
   TextField,
-  RadioButton,
 } from "@shopify/polaris";
 
 import { useAppBridge } from "@shopify/app-bridge-react";
@@ -175,15 +174,6 @@ const Templates = ({ shopData }) => {
                 onChange={set_content}
                 autoComplete="off"
               />
-              <Stack vertical>
-                <RadioButton
-                  label="Fixed"
-                  checked="true"
-                  id="disabled"
-                  name="accounts"
-                />
-                <RadioButton label="Not-Fixed" id="optional" name="accounts" />
-              </Stack>
             </Card>
           </Layout.Section>
           <Layout.Section oneHalf>
