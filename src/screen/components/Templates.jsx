@@ -174,6 +174,22 @@ const Templates = ({ shopData }) => {
                 onChange={set_content}
                 autoComplete="off"
               />
+              <Stack vertical>
+                <RadioButton
+                  label="Fixed"
+                  checked={value === "disabled"}
+                  id="disabled"
+                  name="accounts"
+                  onChange={handleChange}
+                />
+                <RadioButton
+                  label="Not-Fixed"
+                  id="optional"
+                  name="accounts"
+                  checked={value === "optional"}
+                  onChange={handleChange}
+                />
+              </Stack>
             </Card>
           </Layout.Section>
           <Layout.Section oneHalf>
