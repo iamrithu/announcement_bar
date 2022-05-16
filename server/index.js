@@ -86,7 +86,7 @@ export async function createServer(
   });
 
   //=====================================================================
-  app.use("/", (req, res) => {
+  app.use("/demo", (req, res) => {
     res.send("working");
   });
   app.get("/announcementBar", async (req, res) => {
