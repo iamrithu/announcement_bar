@@ -1,5 +1,6 @@
 # Environment Configuration
 .env
+yarn.lock
 
 # Dependency directory
 node_modules
@@ -20,4 +21,4 @@ config/tunnel.pid
 # webpack build output
 dist/
 
-yarn.lock
+
