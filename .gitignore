@@ -22,3 +22,6 @@ config/tunnel.pid
 dist/
 
 
+
+# Local Netlify folder
+.netlify
