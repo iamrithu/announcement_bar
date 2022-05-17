@@ -123,13 +123,6 @@ const Templates = ({ getTemplate }) => {
       body: JSON.stringify(template),
     });
     getTemplate;
-    // set_name("");
-    // set_content("");
-    // set_background_color("");
-    // set_font_color("");
-    // set_font_family("");
-    // set_font_size("");
-    // setSelected("");
   }
 
   return (
