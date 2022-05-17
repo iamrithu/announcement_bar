@@ -1,7 +1,6 @@
 import {
   Card,
-  DataTable,
-  Page,
+  RadioButton,
   Button,
   Stack,
   Layout,
@@ -24,6 +23,7 @@ const Templates = ({ getTemplate }) => {
   const [font_color, set_font_color] = useState("");
   const [font_family, set_font_family] = useState("");
   const [font_size, set_font_size] = useState("");
+  const [position, set_Position] = useState("");
 
   var templates = [
     {
@@ -99,6 +99,7 @@ const Templates = ({ getTemplate }) => {
     setOpenTextField(true);
   };
   async function create() {
+    console.log(position);
     var template = {
       name: name,
       shipBar: content,
@@ -175,6 +176,19 @@ const Templates = ({ getTemplate }) => {
                 onChange={set_content}
                 autoComplete="off"
               />
+              <h2>Positon :</h2>
+              <Stack vertical>
+                <RadioButton
+                  label="Accounts are disabled"
+                  name="position"
+                  onChange={set_Position("relative")}
+                />
+                <RadioButton
+                  label="Accounts are optional"
+                  name="position"
+                  onChange={set_Position("fixed")}
+                />
+              </Stack>
             </Card>
           </Layout.Section>
           <Layout.Section oneHalf>
