@@ -21,7 +21,7 @@ announcementBar.innerHTML = `<div
         justify-content: center;
         color: {{color}};
         font-size: {{font-size}};
-        font-family: Macondo;
+        font-family: {{font-family}};
           ;
       "
     >
