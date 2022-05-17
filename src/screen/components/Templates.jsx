@@ -235,7 +235,7 @@ const Templates = ({ getTemplate }) => {
                     marginRight: "6.8%",
                   }}
                 >
-                  Font-Color :{" "}
+                  Font-Color :
                 </lable>
                 <input
                   value={font_color}
