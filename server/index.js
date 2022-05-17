@@ -76,6 +76,16 @@ export async function createServer(
 
   app.use(body.json());
 
+  //===============================================================================
+
+  app.get("/shop", async (req, res) => {
+    const test_session = await Shopify.Utils.loadCurrentSession(req, res);
+    var data = await Shop.findOne({ shopId: test_session.id });
+    res.send(data);
+  });
+
+  //===============================================================================
+
   app.get("/products-count", verifyRequest(app), async (req, res) => {
     const session = await Shopify.Utils.loadCurrentSession(req, res, true);
     console.log(session);
@@ -161,16 +171,6 @@ export async function createServer(
         res.send(data);
       }
     );
-  });
-
-  //===============================================================================
-
-  //===============================================================================
-
-  app.get("/shop", async (req, res) => {
-    const test_session = await Shopify.Utils.loadCurrentSession(req, res);
-    var data = await Shop.findOne({ shopId: test_session.id });
-    res.send(data);
   });
 
   //===============================================================================
