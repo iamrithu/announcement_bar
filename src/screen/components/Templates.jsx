@@ -185,6 +185,7 @@ const Templates = ({ getTemplate }) => {
                 onChange={set_goal}
                 autoComplete="off"
               />
+
               <Stack alignment="center" distribution="equalSpacing">
                 <TextField
                   label="Initial Message:"
@@ -199,6 +200,7 @@ const Templates = ({ getTemplate }) => {
                   autoComplete="off"
                 />
               </Stack>
+
               <TextField
                 label="Content"
                 value={content}
