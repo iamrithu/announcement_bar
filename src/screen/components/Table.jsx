@@ -79,7 +79,7 @@ export const Table = () => {
               headings={["Item.No", "Name", "Content", "Preview", "Action"]}
               rows={templates.map((info, index) => {
                 return [
-                  index,
+                  index + 1,
                   info.name,
                   info.shipBar,
                   <Stack>

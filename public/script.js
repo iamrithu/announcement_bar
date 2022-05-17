@@ -1,3 +1,6 @@
+const url = new URL(
+  "https://fonts.googleapis.com/css2?family=Dancing+Script&family=Lobster&family=Macondo&family=Merriweather:wght@300&family=Open+Sans:wght@300&family=Pacifico&family=Permanent+Marker&family=Roboto&family=Roboto+Mono:wght@200&family=Skranji&family=Smokum&family=Zen+Loop&display=swap"
+);
 const announcementBar = document.getElementById(
   "shopify-section-announcement-bar"
 );
@@ -16,8 +19,8 @@ announcementBar.innerHTML = `<div
         justify-content: center;
         color: {{color}};
         font-size: {{font-size}};
-        font-family: {{font-family}}
-          ;
+        font-family: 'Lobster', cursive;
+          
       "
     >
       {{content}}
