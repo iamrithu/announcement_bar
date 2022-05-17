@@ -185,7 +185,7 @@ const Templates = ({ getTemplate }) => {
                 onChange={set_goal}
                 autoComplete="off"
               />
-              <Stack>
+              <Stack alignment="center" distribution="trailing">
                 <TextField
                   label="Initial Message:"
                   value="Free shipping for orders over "
