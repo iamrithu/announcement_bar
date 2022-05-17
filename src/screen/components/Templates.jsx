@@ -20,7 +20,7 @@ const Templates = ({ getTemplate }) => {
 
   const options = [
     { label: "Fixed", value: "fixed" },
-    { label: "Scrollable ", value: "trlative" },
+    { label: "Scrollable ", value: "relative" },
   ];
 
   const [openTextField, setOpenTextField] = useState(false);
