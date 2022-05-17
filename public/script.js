@@ -1,9 +1,3 @@
-WebFont.load({
-  google: {
-    families: ["Dancing Script"],
-  },
-});
-
 const announcementBar = document.getElementById(
   "shopify-section-announcement-bar"
 );
@@ -22,8 +16,8 @@ announcementBar.innerHTML = `<div
         justify-content: center;
         color: {{color}};
         font-size: {{font-size}};
-       font-family: 'Dancing Script', cursive;
-          
+        font-family: {{font-family}}
+          ;
       "
     >
       {{content}}
