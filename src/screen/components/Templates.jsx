@@ -1,20 +1,29 @@
 import {
   Card,
-  RadioButton,
   Button,
   Stack,
   Layout,
   TextField,
+  Select,
 } from "@shopify/polaris";
 
 import { useAppBridge } from "@shopify/app-bridge-react";
 import { userLoggedInFetch } from "../../App";
 
-import { useState, useEffect } from "react";
+import { useState, useCallback } from "react";
 
 const Templates = ({ getTemplate }) => {
   const app = useAppBridge();
   const fetch = userLoggedInFetch(app);
+
+  const [selected, setSelected] = useState("today");
+
+  const handleSelectChange = useCallback((value) => setSelected(value), []);
+
+  const options = [
+    { label: "Fixed", value: "fixed" },
+    { label: "Scrollable ", value: "trlative" },
+  ];
 
   const [openTextField, setOpenTextField] = useState(false);
   const [name, set_name] = useState("");
@@ -176,19 +185,12 @@ const Templates = ({ getTemplate }) => {
                 onChange={set_content}
                 autoComplete="off"
               />
-              <h2>Positon :</h2>
-              <Stack vertical>
-                <RadioButton
-                  label="Accounts are disabled"
-                  name="position"
-                  onChange={set_Position("relative")}
-                />
-                <RadioButton
-                  label="Accounts are optional"
-                  name="position"
-                  onChange={set_Position("fixed")}
-                />
-              </Stack>
+              <Select
+                label="Date range"
+                options={options}
+                onChange={handleSelectChange}
+                value={selected}
+              />
             </Card>
           </Layout.Section>
           <Layout.Section oneHalf>
