@@ -24,7 +24,8 @@ const Templates = ({ getTemplate }) => {
   ];
 
   const [openTextField, setOpenTextField] = useState(false);
-  const [name, set_name] = useState("");
+  const [name, set_name] = useState("My First Free Shipping Bar");
+  const [goal, set_goal] = useState(100);
   const [content, set_content] = useState("");
   const [background_color, set_background_color] = useState("");
   const [font_color, set_font_color] = useState("");
@@ -177,6 +178,27 @@ const Templates = ({ getTemplate }) => {
                 onChange={set_name}
                 autoComplete="off"
               />
+              <TextField
+                label="Free Shipping Goal:"
+                type="number"
+                value={goal}
+                onChange={set_goal}
+                autoComplete="off"
+              />
+              <Stack>
+                <TextField
+                  label="Initial Message:"
+                  value="Free shipping for orders over "
+                  onChange={set_content}
+                  autoComplete="off"
+                />{" "}
+                <h2>{goal}</h2>
+                <TextField
+                  value="away from free shipping"
+                  onChange={set_content}
+                  autoComplete="off"
+                />
+              </Stack>
               <TextField
                 label="Content"
                 value={content}
