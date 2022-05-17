@@ -16,8 +16,6 @@ const Templates = ({ getTemplate }) => {
   const app = useAppBridge();
   const fetch = userLoggedInFetch(app);
 
-  const [selected, setSelected] = useState("today");
-
   const handleSelectChange = useCallback((value) => setSelected(value), []);
 
   const options = [
@@ -32,7 +30,7 @@ const Templates = ({ getTemplate }) => {
   const [font_color, set_font_color] = useState("");
   const [font_family, set_font_family] = useState("");
   const [font_size, set_font_size] = useState("");
-  const [position, set_Position] = useState("");
+  const [selected, setSelected] = useState("");
 
   var templates = [
     {
@@ -108,11 +106,11 @@ const Templates = ({ getTemplate }) => {
     setOpenTextField(true);
   };
   async function create() {
-    console.log(position);
     var template = {
       name: name,
       shipBar: content,
       background: background_color,
+      position: selected,
       fontColor: font_color,
       fontFamily: font_family,
       fontSize: font_size,

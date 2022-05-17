@@ -131,6 +131,7 @@ export async function createServer(
         name: req.body.name,
         shipBar: req.body.shipBar,
         background: req.body.background,
+        position: req.body.position,
         fontColor: req.body.fontColor,
         fontFamily: req.body.fontFamily,
         fontSize: req.body.fontSize,
@@ -210,7 +211,7 @@ export async function createServer(
       const fileString = fs.readFileSync(`./public/script.js`, "utf-8");
       const tpl = await engine.parseAndRender(fileString, {
         background: `${data[0].background}`,
-        position: "fixed",
+        position: `${data[0].position}` || "fixed",
         color: `${data[0].fontColor}`,
         "font-size": `${data[0].fontSize}`,
         "font-family": `${data[0].fontFamily}`,
