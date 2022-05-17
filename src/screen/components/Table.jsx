@@ -23,7 +23,6 @@ export const Table = () => {
 
   const [actived, setActive] = useState();
 
-  const [shop_details, set_shop_details] = useState({});
   const [templates, set_templates] = useState([]);
   const [openState, setOpenState] = useState(false);
 
@@ -119,7 +118,7 @@ export const Table = () => {
           </Card>
         </Layout.Section>
         <Layout.Section>
-          {openState ? <Templates shopData={shop_details} /> : null}
+          {openState ? <Templates getTemplate={getTemplate()} /> : null}
         </Layout.Section>
       </Layout>
     </Page>

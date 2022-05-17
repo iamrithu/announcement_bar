@@ -13,7 +13,7 @@ import { userLoggedInFetch } from "../../App";
 
 import { useState, useEffect } from "react";
 
-const Templates = ({ shopData }) => {
+const Templates = ({ getTemplate }) => {
   const app = useAppBridge();
   const fetch = userLoggedInFetch(app);
 
@@ -114,6 +114,7 @@ const Templates = ({ shopData }) => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(template),
     });
+    getTemplate;
   }
 
   return (
