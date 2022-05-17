@@ -3,9 +3,11 @@ const announcementBar = document.getElementById(
 );
 const style = document.getElementsByTagName("style")[0];
 
-style.textContent += `deme{
-  background:none;
-}`;
+style.textContent += `@import url('https://fonts.googleapis.com/css2?family=Macondo&display=swap');
+* {
+   font-family: Macondo;
+}
+`;
 announcementBar.style.marginBottom = "10px";
 announcementBar.innerHTML = `<div
       style="
@@ -21,7 +23,7 @@ announcementBar.innerHTML = `<div
         justify-content: center;
         color: {{color}};
         font-size: {{font-size}};
-        font-family: {{font-family}}
+        font-family: Macondo
           ;
       "
     >
