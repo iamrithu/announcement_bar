@@ -7,7 +7,7 @@ announcementBar.innerHTML = `<div
         height: 35px;
         width: 100%;
         background: url();
-        background: {{background}};
+        background: pink;
         margin: 0px;
         margin-bottom:10px;
         display: flex;
