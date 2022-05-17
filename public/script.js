@@ -1,6 +1,11 @@
 const announcementBar = document.getElementById(
   "shopify-section-announcement-bar"
 );
+const style = document.getElementsByTagName("style")[0];
+
+style.textContent += `deme{
+  background:none;
+}`;
 announcementBar.style.marginBottom = "10px";
 announcementBar.innerHTML = `<div
       style="
