@@ -1,3 +1,11 @@
+const announcementBar = document.getElementById(
+  "shopify-section-announcement-bar"
+);
+const style = document.getElementsByTagName("style")[0];
+
+style.textContent += `@import url('https://fonts.googleapis.com/css2?family=Macondo&display=swap');
+
+`;
 announcementBar.style.marginBottom = "10px";
 announcementBar.innerHTML = `<div
       style="
@@ -13,7 +21,7 @@ announcementBar.innerHTML = `<div
         justify-content: center;
         color: {{color}};
         font-size: {{font-size}};
-        font-family: Macondo
+        font-family: Macondo;
           ;
       "
     >
