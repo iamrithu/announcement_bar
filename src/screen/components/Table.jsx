@@ -75,10 +75,11 @@ export const Table = () => {
         <Layout.Section>
           <Card>
             <DataTable
-              columnContentTypes={["text", "text", "text", "text"]}
-              headings={["Name", "Content", "Preview", "Action"]}
+              columnContentTypes={["number", "text", "text", "text", "text"]}
+              headings={["Item.No", "Name", "Content", "Preview", "Action"]}
               rows={templates.map((info, index) => {
                 return [
+                  index,
                   info.name,
                   info.shipBar,
                   <Stack>
