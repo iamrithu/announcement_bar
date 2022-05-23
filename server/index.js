@@ -115,6 +115,7 @@ export async function createServer(
       console.log(shipBar);
       var data = await AnnouncementBar.find({ shopId: test_session.id });
       res.send(data);
+      console.log(data);
     } catch (error) {
       console.log(`get:${error}`);
     }
