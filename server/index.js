@@ -90,7 +90,7 @@ export async function createServer(
 
   app.get("/products-count", verifyRequest(app), async (req, res) => {
     const session = await Shopify.Utils.loadCurrentSession(req, res, true);
-    console.log(session);
+
     const { Product } = await import(
       `@shopify/shopify-api/dist/rest-resources/${Shopify.Context.API_VERSION}/index.js`
     );
@@ -106,13 +106,6 @@ export async function createServer(
     const test_session = await Shopify.Utils.loadCurrentSession(req, res);
 
     try {
-      // const shipBar = await prisma.shops.findMany({
-      //   where: {
-      //     name: test_session.shop,
-      //   },
-      //   include: { product: true },
-      // });
-      // console.log(shipBar);
       var data = await AnnouncementBar.find({ shopId: test_session.id });
       res.send(data);
     } catch (error) {
@@ -122,7 +115,7 @@ export async function createServer(
 
   app.post("/announcementBar", async (req, res) => {
     const test_session = await Shopify.Utils.loadCurrentSession(req, res);
-
+    console.log(test_session.shop);
     var data = await AnnouncementBar.find({
       shopName: test_session.shop,
       isActive: true,
@@ -156,7 +149,7 @@ export async function createServer(
   });
   app.put("/update/:id", async (req, res) => {
     const test_session = await Shopify.Utils.loadCurrentSession(req, res);
-    console.log(test_session);
+
     var data = await AnnouncementBar.find({
       shopName: test_session.shop,
       isActive: true,
