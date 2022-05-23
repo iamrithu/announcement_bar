@@ -17,6 +17,8 @@ import fs from "fs";
 
 import applyAuthMiddleware from "./middleware/auth.js";
 import verifyRequest from "./middleware/verify-request.js";
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
 const USE_ONLINE_TOKENS = true;
 const TOP_LEVEL_OAUTH_COOKIE = "shopify_top_level_oauth";
@@ -98,10 +100,19 @@ export async function createServer(
 
   //=====================================================================
 
+  //=====================================================================
+
   app.get("/announcementBar", async (req, res) => {
     const test_session = await Shopify.Utils.loadCurrentSession(req, res);
 
     try {
+      const shipBar = await prisma.shops.findMany({
+        where: {
+          name: test_session.shop,
+        },
+        include: { product: true },
+      });
+      console.log(shipBar);
       var data = await AnnouncementBar.find({ shopId: test_session.id });
       res.send(data);
     } catch (error) {
