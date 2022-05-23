@@ -106,13 +106,13 @@ export async function createServer(
     const test_session = await Shopify.Utils.loadCurrentSession(req, res);
 
     try {
-      const shipBar = await prisma.shops.findMany({
-        where: {
-          name: test_session.shop,
-        },
-        include: { product: true },
-      });
-      console.log(shipBar);
+      // const shipBar = await prisma.shops.findMany({
+      //   where: {
+      //     name: test_session.shop,
+      //   },
+      //   include: { product: true },
+      // });
+      // console.log(shipBar);
       var data = await AnnouncementBar.find({ shopId: test_session.id });
       res.send(data);
     } catch (error) {
