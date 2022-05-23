@@ -69,7 +69,9 @@ export const Table = () => {
         <Layout.Section>
           <Stack distribution="trailing">
             {" "}
-            <Button onClick={add}>Add</Button>{" "}
+            <Button primary onClick={add}>
+              Create Template
+            </Button>{" "}
           </Stack>
         </Layout.Section>
         <Layout.Section>
