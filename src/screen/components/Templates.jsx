@@ -286,7 +286,9 @@ const Templates = ({ getTemplate }) => {
           </Layout.Section>
           <Layout.Section fullWidth>
             <Stack distribution="trailing">
-              <Button onClick={() => create()}>Create</Button>
+              <Button primary onClick={() => create()}>
+                Create Template
+              </Button>
             </Stack>
           </Layout.Section>
         </>
